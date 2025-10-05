@@ -20,11 +20,11 @@ export const StatsAndFilter: React.FC<StatsAndFilterProps> = ({
   return (
     <div className="flex flex-col item-start justify-between gap-4 sm:flex-row sm:items-center">
       <div className="flex gap-3">
-        <Badge variant="secondary" className="bg-white/50 text-accent-foreground border-info/20">
+        <Badge variant="secondary" className="bg-white/10 text-accent-foreground border-info/30 dark:text-blue-600">
           {activeTasksCount} {FilterLabel.active}
         </Badge>
 
-        <Badge variant="secondary" className="bg-white/50 text-success border-success/20">
+        <Badge variant="secondary" className="bg-white/10 text-success border-success/30">
           {completedTasksCount} {FilterLabel.completed}
         </Badge>
       </div>

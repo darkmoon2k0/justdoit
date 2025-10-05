@@ -93,19 +93,20 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, handleTaskChanged }) =
               onBlur={() => {
                 setIsEditing(false);
                 setEditedTitle(task.title);
-                handleTitleUpdate()}}
+                handleTitleUpdate();
+              }}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && editedTitle.trim() !== "") {
                   handleTitleUpdate();
                 }
               }}
               autoFocus
-              className="flex-1 h-12 text-base border-border/50 focus:border-primary/50 focus:ring-primary/20"
+              className="flex-1 h-12 text-base border-border/50 focus:border-primary/50 focus:ring-primary/20 dark:border-border/20 dark:focus:border-primary-dark/70 dark:focus:ring-primary-dark/40 "
             />
           ) : (
             <p
               className={cn(
-                "text-base transition-all duration-200",
+                "text-base transition-all duration-200 cursor-text select-text",
                 task.status === "completed" ? "line-through text-muted-foreground" : "text-foreground"
               )}
               // onClick={() => setIsEditing(true)}
@@ -151,7 +152,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, handleTaskChanged }) =
           <Button
             variant="ghost"
             size="icon"
-            className="flex-shrink-0 transition-colors size-8 text-muted-foreground hover:text-info"
+            className="flex-shrink-0 transition-colors size-8 text-muted-foreground hover:text-info dark:text-gray-400 dark:hover:text-blue-400"
             onClick={() => setIsEditing(true)}
           >
             <SquarePen className="size-4" />
@@ -160,7 +161,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, handleTaskChanged }) =
           <Button
             variant="ghost"
             size="icon"
-            className="flex-shrink-0 transition-colors size-8 text-muted-foreground hover:text-destructive"
+            className="flex-shrink-0 transition-colors size-8 text-muted-foreground hover:text-destructive dark:text-gray-400 dark:hover:text-red-400"
             onClick={() => deleteTask(task._id)}
           >
             <Trash2 className="size-4" />

@@ -70,7 +70,7 @@ export function PaginationTaskList({
                   }}
                   className={cn(
                     "cursor-pointer",
-                    page === pageNum && "bg-primary text-primary-foreground hover:bg-primary"
+                    page === pageNum && "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground",
                   )}
                 >
                   {pageNum}
@@ -83,7 +83,7 @@ export function PaginationTaskList({
             <PaginationNext
               href="#"
               onClick={page === totalPages ? undefined : handleNextPage}
-              className={cn("cursor-pointer", (page === totalPages || !!page) && "pointer-events-none opacity-50")}
+              className={cn("cursor-pointer", (page === totalPages || !page) && "pointer-events-none opacity-50")}
             />
           </PaginationItem>
         </PaginationContent>
