@@ -69,7 +69,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, handleTaskChanged }) =
       )}
       style={{ animationDelay: `${index * 50}ms` }}
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 group">
         <Button
           variant="ghost"
           size="icon"
@@ -85,31 +85,44 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, handleTaskChanged }) =
         </Button>
         <div className="flex-1 min-w-0">
           {isEditing ? (
-            <Input
-              type="text"
-              placeholder="What needs to be done?"
-              value={editedTitle}
-              onChange={(e) => setEditedTitle(e.target.value)}
-              onBlur={() => {
-                setIsEditing(false);
-                setEditedTitle(task.title);
-                handleTitleUpdate();
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && editedTitle.trim() !== "") {
+            <div className="relative w-full group">
+              <Input
+                type="text"
+                placeholder="What needs to be done?"
+                value={editedTitle}
+                onChange={(e) => {
+                  if (e.target.value.length <= 50) setEditedTitle(e.target.value);
+                }}
+                onBlur={() => {
+                  setIsEditing(false);
+                  setEditedTitle(task.title);
                   handleTitleUpdate();
-                }
-              }}
-              autoFocus
-              className="flex-1 h-12 text-base border-border/50 focus:border-primary/50 focus:ring-primary/20 dark:border-border/20 dark:focus:border-primary-dark/70 dark:focus:ring-primary-dark/40 "
-            />
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && editedTitle.trim() !== "") {
+                    handleTitleUpdate();
+                  }
+                }}
+                autoFocus
+                className=" pr-[80px] h-12 text-base border-border/50 focus:border-primary/50 focus:ring-primary/20 dark:border-border/20 dark:focus:border-primary-dark/70 dark:focus:ring-primary-dark/40 "
+              />
+              <span
+                className={cn(
+                  " absolute right-3 bottom-2/6 text-xs pointer-events-none",
+                  editedTitle.length >= 45 ? "text-red-500" : "text-muted-foreground"
+                )}
+              >
+                {editedTitle.length}/50
+              </span>
+            </div>
           ) : (
             <p
               className={cn(
-                "text-base transition-all duration-200 cursor-text select-text",
+                "truncate text-base transition-all duration-200 cursor-text select-text animate-slide-up",
+                "hover:whitespace-normal hover:overflow-visible hover:break-words",
                 task.status === "completed" ? "line-through text-muted-foreground" : "text-foreground"
               )}
-              // onClick={() => setIsEditing(true)}
+              onClick={() => setIsEditing(true)}
             >
               {task.title}
             </p>
@@ -148,7 +161,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, handleTaskChanged }) =
         </div>
 
         {/* {pen and trash icon} */}
-        <div className="hidden gap-2 group-hover:inline-flex animate-slide-up">
+        <div className="shrink-0 flex gap-2 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200">
           <Button
             variant="ghost"
             size="icon"
