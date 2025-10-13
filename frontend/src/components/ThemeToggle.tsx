@@ -15,7 +15,6 @@ export default function ThemeToggle() {
   const [maxTx, setMaxTx] = useState(0);
   const [half,  setHalf]  = useState(0);
 
-  // đo kích thước
   const measure = () => {
     if (!trackRef.current || !knobRef.current) return;
     const track = trackRef.current;
@@ -51,7 +50,7 @@ export default function ThemeToggle() {
     document.documentElement.classList.toggle("dark", applied);
   }, [dark, dragging, previewDark]);
 
-  // save storage
+  // save theme
   useEffect(() => {
     localStorage.setItem("theme", dark ? "dark" : "light");
   }, [dark]);
@@ -107,13 +106,13 @@ export default function ThemeToggle() {
         className={`relative w-17 h-9  rounded-full cursor-pointer select-none border-0
                     ${dark ? "bg-purple-900" : "bg-white "}`}
       >
-        {/* Icon ☀️ 🌙 — padding nhỏ để không dư khoảng trắng */}
+        {/* Icon ☀️ 🌙  */}
         <div className="absolute inset-0 flex items-center justify-between px-2 text-[20px] pointer-events-none">
           <span className={`${dark ? "opacity-30" : "opacity-100"} transition-opacity`}>{SUN}</span>
           <span className={`${dark ? "opacity-100" : "opacity-30"} transition-opacity`}>{MOON}</span>
         </div>
 
-        {/* Knob: to/[2px] left/[2px], size 36px (sát hơn, cân đối) */}
+        {/* Knob: to/[2px] left/[2px], size 36px  */}
         <div
           ref={knobRef}
           onPointerDown={onKnobPointerDown}

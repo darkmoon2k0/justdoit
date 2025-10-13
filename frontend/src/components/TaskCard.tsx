@@ -96,11 +96,16 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, handleTaskChanged }) =
                 onBlur={() => {
                   setIsEditing(false);
                   setEditedTitle(task.title);
-                  handleTitleUpdate();
+                  if (editedTitle.trim() !== task.title.trim() && editedTitle.trim() !== "") {
+                    handleTitleUpdate();
+                  } else {
+                    setEditedTitle(task.title); 
+                  }
                 }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && editedTitle.trim() !== "") {
                     handleTitleUpdate();
+                    setIsEditing(false);
                   }
                 }}
                 autoFocus
